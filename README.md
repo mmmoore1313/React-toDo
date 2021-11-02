@@ -60,5 +60,290 @@
 >>>>> </details>
 >>>> </details>
 >>> </details>
+>> </details>
+>> <details>
+>>  <summary>3. Make it do something</summary>
 >>
+>>> <details>
+>>>  <summary>3.1- Imports</summary>
+>>>
+>>>> Add to the top:
+>>>> ```
+>>>>  import { Button, Card, Form } from 'react-bootstrap'
+>>>>  import 'bootstrap/dist/css/bootstrap.min.css'
+>>>> ```
+>>> </details>
+>>> <details>
+>>>  <summary>3.2- Functions</summary>
+>>>
+>>>> <details>
+>>>>  <summary>3.2.1- <code>Todo()</code></summary>
+>>>>
+>>>>> ```
+>>>>> function Todo({ todo, index, markTodo, removeTodo }) {
+>>>>>   return (
+>>>>>     <div className="todo">
+>>>>>       <span style={{ textDecoration: todo.isDone ? "line-through" : "" }}>
+>>>>>         {todo.text}
+>>>>>       </span>
+>>>>>       <div>
+>>>>>         <Button variant="outline-success" onClick={() => markTodo(index)}>
+>>>>>           ✓
+>>>>>         </Button>
+>>>>>         {' '}
+>>>>>         <Button variant="outline-danger" onClick={() => removeTodo(index)}>
+>>>>>           ✕
+>>>>>         </Button>
+>>>>>       </div>
+>>>>>     </div>
+>>>>>   )
+>>>>> }
+>>>>> ```
+>>>> </details>
+>>>> <details>
+>>>>  <summary>3.2.2- <code>FormTodo()</code></summary>
+>>>>
+>>>>> <details>
+>>>>>  <summary>3.2.2.1- <code>useState()</code></summary>
+>>>>>
+>>>>>> `const [value, setValue] = React.useState("")`
+>>>>> </details>
+>>>>> <details>
+>>>>>  <summary>3.2.2.2- <code>handleSubmit()</code></summary>
+>>>>>
+>>>>>> ``` 
+>>>>>> const handleSubmit = e => {
+>>>>>>   e.preventDefault()
+>>>>>>   if (!value) return
+>>>>>>   addTodo(value)
+>>>>>>   setValue("")
+>>>>>> }
+>>>>>> ``` 
+>>>>> </details>
+>>>>> <details>
+>>>>> <summary>3.2.2.3- <code>return()</code></summary>
+>>>>>
+>>>>>> ``` 
+>>>>>> return (
+>>>>>>   <Form onSubmit={handleSubmit}>
+>>>>>>     <Form.Group>
+>>>>>>       <Form.Label>
+>>>>>>         <b>Add Todo</b>
+>>>>>>       </Form.Label>
+>>>>>>       <Form.Control
+>>>>>>         type="text"
+>>>>>>         className="input"
+>>>>>>         value={value}
+>>>>>>         onChange={e => setValue(e.target.value)}
+>>>>>>         placeholder="Add new todo"
+>>>>>>       />
+>>>>>>       <Button variant="primary mb-3" type="submit">
+>>>>>>         Submit
+>>>>>>       </Button>
+>>>>>>     </Form.Group>
+>>>>>>   </Form>
+>>>>>> )
+>>>>>> ``` 
+>>>>> </details> 
+>>>> </details>
+>>>> <details>
+>>>>  <summary>3.2.3- <code>App()</code></summary>
+>>>>
+>>>>> <details>
+>>>>>  <summary>3.2.3.1- <code>useState()</code></summary>
+>>>>>
+>>>>>> ``` 
+>>>>>> const [todos, setTodos] = React.useState([
+>>>>>>   {
+>>>>>>     text: "This is a sample todo",
+>>>>>>     isDone: false
+>>>>>>   }
+>>>>>> ])
+>>>>>> ```  
+>>>>> </details>
+>>>>> <details>
+>>>>>  <summary>3.2.3.2- <code>addTodo()</code></summary>
+>>>>>
+>>>>>> ``` 
+>>>>>> const addTodo = text => {
+>>>>>>   const newTodos = [...todos, { text }]
+>>>>>>   setTodos(newTodos)
+>>>>>> }
+>>>>>> ```  
+>>>>> </details>
+>>>>> <details>
+>>>>>  <summary>3.2.3.3- <code>markTodo()</code></summary>
+>>>>>
+>>>>>> ``` 
+>>>>>> const markTodo = index => {
+>>>>>>   const newTodos = [...todos]
+>>>>>>   newTodos[index].isDone = true
+>>>>>>   setTodos(newTodos)
+>>>>>> }
+>>>>>> ```  
+>>>>> </details>
+>>>>> <details>
+>>>>>  <summary>3.2.3.4- <code>removeTodo()</code></summary>
+>>>>>
+>>>>>> ``` 
+>>>>>> const removeTodo = index => {
+>>>>>>   const newTodos = [...todos]
+>>>>>>   newTodos.splice(index, 1)
+>>>>>>   setTodos(newTodos)
+>>>>>> }
+>>>>>> ``` 
+>>>>> </details>
+>>>>> <details>
+>>>>>  <summary>3.2.3.5- <code>return()</code></summary>
+>>>>>
+>>>>>> ``` 
+>>>>>> return (
+>>>>>>   <div className="app">
+>>>>>>     <div className="container">
+>>>>>>       <h1 className="text-center mb-4">
+>>>>>>         Todo List
+>>>>>>       </h1>
+>>>>>>       <FormTodo addTodo={addTodo} />
+>>>>>>       <div>
+>>>>>>         {todos.map((todo, index) => (
+>>>>>>           <Card>
+>>>>>>             <Card.Body>
+>>>>>>               <Todo
+>>>>>>                 key={index}
+>>>>>>                 index={index}
+>>>>>>                 todo={todo}
+>>>>>>                 markTodo={markTodo}
+>>>>>>                 removeTodo={removeTodo}
+>>>>>>               />
+>>>>>>             </Card.Body>
+>>>>>>           </Card>
+>>>>>>         ))}
+>>>>>>       </div>
+>>>>>>     </div>
+>>>>>>   </div>
+>>>>>> )
+>>>>>> ``` 
+>>>>> </details>
+>>>> </details>
+>>>> <details>
+>>>>  <summary>3.3- Complete <code>App.js</code></summary>
+>>>>
+>>>>> ``` 
+>>>>>  import React from "react"
+>>>>>  import './App.css';
+>>>>>  import { Button, Card, Form } from 'react-bootstrap'
+>>>>>  import 'bootstrap/dist/css/bootstrap.min.css'
+>>>>>  
+>>>>>  function Todo({ todo, index, markTodo, removeTodo }) {
+>>>>>    return (
+>>>>>      <div className="todo">
+>>>>>        <span style={{ textDecoration: todo.isDone ? "line-through" : "" }}>
+>>>>>          {todo.text}
+>>>>>        </span>
+>>>>>        <div>
+>>>>>          <Button variant="outline-success" onClick={() => markTodo(index)}>
+>>>>>            ✓
+>>>>>          </Button>
+>>>>>          {' '}
+>>>>>          <Button variant="outline-danger" onClick={() => removeTodo(index)}>
+>>>>>            ✕
+>>>>>          </Button>
+>>>>>        </div>
+>>>>>      </div>
+>>>>>    )
+>>>>>  }
+>>>>>  
+>>>>>  function FormTodo({ addTodo }) {
+>>>>>    const [value, setValue] = React.useState("")
+>>>>>    
+>>>>>    const handleSubmit = e => {
+>>>>>      e.preventDefault()
+>>>>>      if (!value) return
+>>>>>      addTodo(value)
+>>>>>      setValue("")
+>>>>>    }
+>>>>>    
+>>>>>    return (
+>>>>>      <Form onSubmit={handleSubmit}>
+>>>>>        <Form.Group>
+>>>>>          <Form.Label>
+>>>>>            <b>Add Todo</b>
+>>>>>          </Form.Label>
+>>>>>          <Form.Control
+>>>>>            type="text"
+>>>>>            className="input"
+>>>>>            value={value}
+>>>>>            onChange={e => setValue(e.target.value)}
+>>>>>            placeholder="Add new todo"
+>>>>>          />
+>>>>>          <Button variant="primary mb-3" type="submit">
+>>>>>            Submit
+>>>>>          </Button>
+>>>>>        </Form.Group>
+>>>>>      </Form>
+>>>>>    )
+>>>>>  }
+>>>>>  
+>>>>>  function App() {
+>>>>>    const [todos, setTodos] = React.useState([
+>>>>>      {
+>>>>>        text: "This is a sample todo",
+>>>>>        isDone: false
+>>>>>      }
+>>>>>    ])
+>>>>>    
+>>>>>    const addTodo = text => {
+>>>>>      const newTodos = [...todos, { text }]
+>>>>>      setTodos(newTodos)
+>>>>>    }
+>>>>>    
+>>>>>    const markTodo = index => {
+>>>>>      const newTodos = [...todos]
+>>>>>      newTodos[index].isDone = true
+>>>>>      setTodos(newTodos)
+>>>>>    }
+>>>>>    
+>>>>>    const removeTodo = index => {
+>>>>>      const newTodos = [...todos]
+>>>>>      newTodos.splice(index, 1)
+>>>>>      setTodos(newTodos)
+>>>>>    }
+>>>>>    
+>>>>>    return (
+>>>>>      <div className="app">
+>>>>>        <div className="container">
+>>>>>          <h1 className="text-center mb-4">
+>>>>>            Todo List
+>>>>>          </h1>
+>>>>>          <FormTodo addTodo={addTodo} />
+>>>>>          <div>
+>>>>>            {todos.map((todo, index) => (
+>>>>>              <Card>
+>>>>>                <Card.Body>
+>>>>>                  <Todo
+>>>>>                    key={index}
+>>>>>                    index={index}
+>>>>>                    todo={todo}
+>>>>>                    markTodo={markTodo}
+>>>>>                    removeTodo={removeTodo}
+>>>>>                  />
+>>>>>                </Card.Body>
+>>>>>              </Card>
+>>>>>            ))}
+>>>>>          </div>
+>>>>>        </div>
+>>>>>      </div>
+>>>>>    )
+>>>>>  }
+>>>>>  
+>>>>>  export default App;
+>>>>> ```  
+>>>> </details>
+>>> </details>
+>> </details>
+> ## Links
+>> <details>
+>>  <summary></summary>
+>>
+>>> 
 >> </details>
