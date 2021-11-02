@@ -3,37 +3,7 @@ import './App.css';
 import { Button, Card, Form } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Todo from './components/Todo/Todo.jsx'
-
-function FormTodo({ addTodo }) {
-  const [value, setValue] = React.useState("")
-  
-  const handleSubmit = e => {
-    e.preventDefault()
-    if (!value) return
-    addTodo(value)
-    setValue("")
-  }
-  
-  return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group>
-        <Form.Label>
-          <b>Add Todo</b>
-        </Form.Label>
-        <Form.Control
-          type="text"
-          className="input"
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          placeholder="Add new todo"
-        />
-        <Button variant="primary mb-3" type="submit">
-          Submit
-        </Button>
-      </Form.Group>
-    </Form>
-  )
-}
+import FormTodo from './components/FormTodo/FormTodo.jsx'
 
 function App() {
   const [todos, setTodos] = React.useState([
