@@ -1,5 +1,5 @@
 import React from "react"
-import { Button, Card, Form } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 function Todo({ todo, index, markTodo, removeTodo }) {
