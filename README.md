@@ -8,6 +8,7 @@
 >>
 >
 > </details>
+>
 > ## About
 >> <details>
 >>  <summary>This Todo App is built following the "<a href="https://towardsdatascience.com/build-a-simple-todo-app-using-react-a492adc9c8a4">Build a Simple Todo App using React</a>" by <a href="https://shubhamstudent5.medium.com/?source=post_page-----a492adc9c8a4--------------------------------">Kumar Shubham</a>.</summary>
